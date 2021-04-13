@@ -28,9 +28,9 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 	test_data  = test_data if (n_to_process ==-1 or n_to_process>len(test_data)) else test_data[:n_to_process]
 
 
-	train_paths = train_data.apply(lambda x: 'database/' + x[0]).as_matrix()
-	val_paths   = val_data.apply(lambda x: 'database/' + x[0]).as_matrix()
-	test_paths  = test_data.apply(lambda x: 'database/' + x[0]).as_matrix()
+	train_paths = train_data.apply(lambda x: 'database/' + x[0]).values#as_matrix()
+	val_paths   = val_data.apply(lambda x: 'database/' + x[0]).values#as_matrix()
+	test_paths  = test_data.apply(lambda x: 'database/' + x[0]).values#as_matrix()
 	all_paths   = np.hstack((train_paths, val_paths, test_paths))
 
 	i=0

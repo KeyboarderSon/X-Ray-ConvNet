@@ -18,9 +18,9 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 	          'images_07','images_08', 'images_09', 'images_10', 'images_11', 'images_12'):
 		os.makedirs(f'../database_preprocessed/{f}', exist_ok=True)
 
-	train_data = pd.read_csv('../dataset/mytrain_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
-	val_data   = pd.read_csv('../dataset/myval_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
-	test_data  = pd.read_csv('../dataset/mytest_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
+	train_data = pd.read_csv('dataset/mytrain_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
+	val_data   = pd.read_csv('dataset/myval_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
+	test_data  = pd.read_csv('dataset/mytest_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
 
 	# number of samples to process
 	train_data = train_data if (n_to_process==-1 or n_to_process>len(train_data)) else train_data[:n_to_process]
@@ -28,9 +28,9 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 	test_data  = test_data if (n_to_process ==-1 or n_to_process>len(test_data)) else test_data[:n_to_process]
 
 
-	train_paths = train_data.apply(lambda x: '../database/' + x[0]).as_matrix()
-	val_paths   = val_data.apply(lambda x: '../database/' + x[0]).as_matrix()
-	test_paths  = test_data.apply(lambda x: '../database/' + x[0]).as_matrix()
+	train_paths = train_data.apply(lambda x: 'database/' + x[0]).as_matrix()
+	val_paths   = val_data.apply(lambda x: 'database/' + x[0]).as_matrix()
+	test_paths  = test_data.apply(lambda x: 'database/' + x[0]).as_matrix()
 	all_paths   = np.hstack((train_paths, val_paths, test_paths))
 
 	i=0

@@ -33,6 +33,7 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 	test_paths  = test_data.apply(lambda x: 'database/' + x[0]).values#as_matrix()
 	all_paths   = np.hstack((train_paths, val_paths, test_paths))
 
+
 	i=0
 	for img_path in all_paths:
 		i += 1

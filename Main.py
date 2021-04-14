@@ -7,7 +7,6 @@ from sklearn.metrics import confusion_matrix
 from keras.optimizers import Adam
 from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint, EarlyStopping, LambdaCallback
 
-
 from CNN_Model import BinaryModel
 from DataLoader import DataLoader
 
@@ -15,7 +14,7 @@ from DataLoader import DataLoader
 
 ############################# Parameters ############################
 test_trained_model     = False
-load_previous_weights  = False
+load_previous_weights  = True#False
 
 samples_to_train  = 3000 #max: 78468
 samples_to_val    = 250  #max: 11219
@@ -24,7 +23,7 @@ epochs = 25
 batch_size = 32
 image_shape = (128, 128, 3)
 model_learn_rate = 0.001
-model_architecture = 'custom'
+model_architecture = 'dense_net121'
 
 #decrease resource usage:
 idle_time_on_batch = 0.1
@@ -123,7 +122,7 @@ if not test_trained_model:
 	plt.show()
 
 
-
+#  ************pretrained model 사용하는 경우*************
 else: # if use_trained_model:
 	print('##### Loading NN Model #####')
 	from keras.models import model_from_json

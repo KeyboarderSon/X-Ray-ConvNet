@@ -28,9 +28,9 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 	test_data  = test_data if (n_to_process ==-1 or n_to_process>len(test_data)) else test_data[:n_to_process]
 
 
-	train_paths = train_data.apply(lambda x: 'joohye/X-Ray-ConvNet/database/' + x[0]).values#as_matrix()
-	val_paths   = val_data.apply(lambda x: 'joohye/X-Ray-ConvNet/database/' + x[0]).values#as_matrix()
-	test_paths  = test_data.apply(lambda x: 'joohye/X-Ray-ConvNet/database/' + x[0]).values#as_matrix()
+	train_paths = train_data.apply(lambda x: '../../kibum_park/' + x[0]).values#as_matrix()
+	val_paths   = val_data.apply(lambda x: '../../kibum_park/' + x[0]).values#as_matrix()
+	test_paths  = test_data.apply(lambda x: '../../kibum_park/' + x[0]).values#as_matrix()"""joohye/X-Ray-ConvNet/database/"""
 	all_paths   = np.hstack((train_paths, val_paths, test_paths))
 
 
@@ -38,7 +38,7 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 	for img_path in all_paths:
 		i += 1
 		if  i % max(1, int(len(all_paths)/1000))==0: print(i, '/', len(all_paths))
-		new_path = img_path.replace('database', 'database_preprocessed')
+		new_path = img_path.replace('kibum_park', '../joohye/X-Ray-ConvNet/database_preprocessed')
 		img = plt.imread(img_path)
 		img = exposure.equalize_adapthist(img, clip_limit=0.05)
 		img = transform.resize(img, img_shape, anti_aliasing=True)

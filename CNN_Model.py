@@ -33,7 +33,8 @@ class BinaryModel:
 
 
 
-
+#include_top=False로 하면 맨 위에 분류 층이 포함되지 않은 네트워크 로드
+#-> 특징 추출에 이상적
 	def mobile_net(self, percent2retrain):
 		'Returns a mobilenet architecture NN'
 		mobile_net_model = mobilenetv2.MobileNetV2(input_shape=self.input_dim,

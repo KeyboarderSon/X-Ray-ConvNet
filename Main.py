@@ -14,7 +14,7 @@ from DataLoader import DataLoader
 
 ############################# Parameters ############################
 test_trained_model     = False
-load_previous_weights  = True#False
+load_previous_weights  = False
 
 samples_to_train  = 3000 #max: 78468
 samples_to_val    = 250  #max: 11219

@@ -16,9 +16,9 @@ from DataLoader import DataLoader
 test_trained_model     = False
 load_previous_weights  = False
 
-samples_to_train  = 3000 #max: 78468
-samples_to_val    = 250  #max: 11219
-samples_to_test   = 2000 #max: 22433
+samples_to_train  = 78468#3000 #max: 78468
+samples_to_val    = 11219#250  #max: 11219
+samples_to_test   = 22433#2000 #max: 22433
 epochs = 25
 batch_size = 32
 image_shape = (128, 128, 3)
@@ -59,9 +59,9 @@ if not test_trained_model:
 	                    n_classes=1).get_model()
 
 
-	if load_previous_weights == True:
-		print('Loading Model Weights')
-		model.load_weights("model_weights.hdf5")
+	#if load_previous_weights == True:
+	#	print('Loading Model Weights')
+	#	model.load_weights("model_weights.hdf5")
 
 	optimizer = Adam(lr=model_learn_rate,
 	                 beta_1=0.9,

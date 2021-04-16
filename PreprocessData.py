@@ -40,7 +40,7 @@ def preprocess_data(n_to_process=-1, img_shape=(128,128)):
 		if  i % max(1, int(len(all_paths)/1000))==0: print(i, '/', len(all_paths))
 		new_path = img_path.replace('kibum_park', 'joohye/X-Ray-ConvNet/database_preprocessed')
 		img = plt.imread(img_path)
-		img = exposure.equalize_adapthist(img, clip_limit=0.05)
+		img = exposure.equalize_adapthist(img, clip_limit=0.05)#histogram equalization
 		img = transform.resize(img, img_shape, anti_aliasing=True)
 		plt.imsave(fname=new_path, arr=img, cmap='gray')
 

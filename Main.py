@@ -23,7 +23,7 @@ epochs = 25
 batch_size = 32
 image_shape = (128, 128, 3)
 model_learn_rate = 0.001
-model_architecture = 'dense_net121'
+model_architecture = 'dense121'
 
 #decrease resource usage:
 idle_time_on_batch = 0.1

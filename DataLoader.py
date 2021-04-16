@@ -20,7 +20,7 @@ class DataLoader:
 		if plot_distribuition: self.plot_data_distribuition()
 
 	def load_train_data(self):
-		train_data = pd.read_csv('../dataset/train_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
+		train_data = pd.read_csv('dataset/mytrain_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
 		train_labels = np.vstack(train_data.apply(lambda x: max(x[1].split())).values).astype(np.int8)[:self.ntrain]
 		if self.undersample:
 			disease_counts = np.where(train_labels.any(axis=1))[0]
@@ -29,13 +29,13 @@ class DataLoader:
 			samples_to_train = np.concatenate([healty_counts[:undersampling], disease_counts[:undersampling]])
 			self.ntrain  = len(samples_to_train)
 			train_labels = train_labels[samples_to_train]
-			train_images = train_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[samples_to_train]
+			train_images = train_data.apply(lambda x: '/tf/joohye/database_preprocessed/' + x[0]).values[samples_to_train]#'../database_preprocessed/'
 		else:
-			train_images = train_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[:self.ntrain]
+			train_images = train_data.apply(lambda x: '/tf/joohye/database_preprocessed/' + x[0]).values[:self.ntrain]
 		return (train_images, train_labels)
 
 	def load_validation_data(self):
-		val_data = pd.read_csv('../dataset/val_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
+		val_data = pd.read_csv('dataset/myval_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
 		val_labels = np.vstack(val_data.apply(lambda x: max(x[1].split())).values).astype(np.int8)[:self.nval]
 		if self.undersample:
 			disease_counts = np.where(val_labels.any(axis=1))[0]
@@ -44,15 +44,15 @@ class DataLoader:
 			samples_to_val = np.concatenate([healty_counts[:undersampling], disease_counts[:undersampling]])
 			self.nval = len(samples_to_val)
 			val_labels = val_labels[samples_to_val]
-			val_images = val_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[samples_to_val]
+			val_images = val_data.apply(lambda x: '/tf/joohye/database_preprocessed/' + x[0]).values[samples_to_val]
 		else:
-			val_images = val_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[:self.nval]
+			val_images = val_data.apply(lambda x: '/tf/joohye/database_preprocessed/' + x[0]).values[:self.nval]
 		return (val_images, val_labels)
 
 	def load_test_data(self):
-		test_data = pd.read_csv('../dataset/test_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
+		test_data = pd.read_csv('dataset/mytest_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
 		test_labels = np.vstack(test_data.apply(lambda x: max(x[1].split())).values).astype(np.int8)[:self.ntest]
-		test_images = test_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[:self.ntest]
+		test_images = test_data.apply(lambda x: '/tf/joohye/database_preprocessed/' + x[0]).values[:self.ntest]
 		return (test_images, test_labels)
 
 

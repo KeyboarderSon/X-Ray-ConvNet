@@ -2,7 +2,7 @@ from keras.models import Model
 
 from keras.models import Sequential
 from keras.layers import Input, Dense, Dropout, Flatten, Conv2D, MaxPool2D, BatchNormalization, Activation, concatenate
-from keras.applications import mobilenetv2, densenet, Xception, NASNetMobile
+from keras.applications import densenet, Xception#, NASNetMobile, mobilenetv2
 
 
 class BinaryModel:

@@ -56,12 +56,23 @@ if not test_trained_model:
 	model = BinaryModel(model2load=model_architecture,
 	                    percent2retrain=0.6,
 	                    image_dimensions=image_shape,
-	                    n_classes=1).get_model()
+	                    n_classes=3).get_model()
 
 
 	#if load_previous_weights == True:
 	#	print('Loading Model Weights')
 	#	model.load_weights("model_weights.hdf5")
+"""
+	METRICS = [
+		keras.metrics.TruePositives(name='tp'),
+		keras.metrics.FalsePositives(name='fp'),
+		keras.metrics.TrueNegatives(name='tn'),
+		keras.metrics.FalseNegatives(name='fn'), 
+		keras.metrics.BinaryAccuracy(name='accuracy'),
+		keras.metrics.Precision(name='precision'),
+		keras.metrics.Recall(name='recall'),
+		keras.metrics.AUC(name='auc'),
+	]"""
 
 	optimizer = Adam(lr=model_learn_rate,
 	                 beta_1=0.9,
@@ -70,7 +81,13 @@ if not test_trained_model:
 	                 decay=0.0,
 	                 amsgrad=False)
 
-	model.compile(optimizer=optimizer, loss="binary_crossentropy", metrics=['acc'])
+	model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=['acc'])
+"""
+https://www.tensorflow.org/addons/api_docs/python/tfa/losses/SigmoidFocalCrossEntropy
+https://dsbook.tistory.com/64
+https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC%9D%B4%ED%95%B4
+"""
+
 
 	learning_rate_reduction = ReduceLROnPlateau(monitor='val_loss',
 	                                            patience=5,
@@ -82,7 +99,7 @@ if not test_trained_model:
 	                           mode="min",
 	                           patience=12)
 
-	checkpoint = ModelCheckpoint('model_weights.hdf5',
+	checkpoint = ModelCheckpoint('model_weights_sigmoid_3.hdf5',
 	                             monitor='val_loss',
 	                             verbose=1,
 	                             save_best_only=True,
@@ -100,14 +117,17 @@ if not test_trained_model:
 	print('##### Training Model #####')
 	########################################## Train Model ###############################################
 	model.summary()
+	#34113, 1950 : train 기준 normal 및 abnormal이 34113개, Car~이 1950개 
+	class_w={[1, 0, 0] : 0.02, [0, 1, 0] : 0.02, [0, 0, 1] : 0.96}
 	history = model.fit_generator(generator=train_data,
 	                              validation_data=val_data,
 	                              epochs=epochs,
 	                              steps_per_epoch=len(train_data),
 	                              verbose=2,
+								  class_weight=class_w,
 	                              callbacks=[learning_rate_reduction, early_stop, checkpoint, idle],
 	                              # use_multiprocessing=True,
-	                              # workers=2
+	                              workers=2
 	                              )
 
 	############################# Check Loss and Accuracy graphics over training ########################
@@ -121,7 +141,7 @@ if not test_trained_model:
 	ax[1].legend(loc='best', shadow=True)
 	plt.show()
 
-
+"""
 #  ************pretrained model 사용하는 경우*************
 else: # if use_trained_model:
 	print('##### Loading NN Model #####')
@@ -135,7 +155,7 @@ else: # if use_trained_model:
 
 	optimizer = Adam(lr=model_learn_rate, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0, amsgrad=False)
 	model.compile(optimizer=optimizer, loss="binary_crossentropy", metrics=['acc'])
-
+"""
 
 
 

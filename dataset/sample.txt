@@ -1,0 +1,8 @@
+images_11/images/00027782_003.png 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+images_11/images/00027782_004.png 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+images_11/images/00027782_005.png 0 1 0 0 0 0 0 0 0 0 0 0 0 0
+images_11/images/00027782_006.png 0 1 0 0 0 0 0 0 0 0 0 0 0 0
+images_11/images/00027782_007.png 1 0 0 1 0 0 0 0 0 0 0 0 0 0
+images_11/images/00027782_008.png 0 0 1 0 0 0 0 0 0 1 0 0 0 0
+images_11/images/00027782_009.png 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+images_05/images/00010955_000.png 0 0 0 0 0 0 0 0 0 0 1 0 0 0

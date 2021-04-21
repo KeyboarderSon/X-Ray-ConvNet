@@ -133,6 +133,9 @@ https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC
 	                              )
 
 	############################# Check Loss and Accuracy graphics over training ########################
+	
+	with open('history_file.json', 'w') as f:
+  		json.dump(history.history, f)
 	fig, ax = plt.subplots(2, 1, figsize=(6, 6))
 	ax[0].plot(history.history['loss'], label="TrainLoss")
 	ax[0].plot(history.history['val_loss'], label="ValLoss")
@@ -158,6 +161,10 @@ https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC
 	plt.legend()
 	plt.show()
 	plt.savefig("changeAcc.png")
+
+	
+	model.save('my_model.h5')
+	#load_model('best_model.hdf5').save(PROJECT_PATH+'/train/'+'best_model.hdf5')
 
 
 """

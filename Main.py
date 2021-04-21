@@ -10,17 +10,18 @@ from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint, EarlyStopping, L
 from CNN_Model import BinaryModel
 from DataLoader import DataLoader
 
+import json#
 
 
 ############################# Parameters ############################
 test_trained_model     = False
 load_previous_weights  = False
 
-samples_to_train  = 78468#3000 #max: 78468
-samples_to_val    = 11219#250  #max: 11219
-samples_to_test   = 22433#2000 #max: 22433
-epochs = 25
-batch_size = 32
+samples_to_train  = 3000#78468#3000 #max: 78468
+samples_to_val    = 250#11219#250  #max: 11219
+samples_to_test   = 2000#22433#2000 #max: 22433
+epochs = 2
+batch_size = 128
 image_shape = (128, 128, 3)
 model_learn_rate = 0.001
 model_architecture = 'dense121'
@@ -100,11 +101,12 @@ https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC
 	                           patience=12)
 
 	checkpoint = ModelCheckpoint('model_weights_sigmoid_3.hdf5',
-	                             monitor='val_loss',
+	                             monitor='val_accuracy',#val_loss to val_acc
 	                             verbose=1,
 	                             save_best_only=True,
-	                             mode='min',
-	                             save_weights_only=True)
+	                             mode='max',# according to monitor : val_accuracy
+	                             #save_weights_only=True
+								)
 
 	# sleep after each batch and epoch (prevent laptop from melting) (sleeps for x sec)(remove for faster training)
 	idle = LambdaCallback(on_epoch_end=lambda batch, logs: time.sleep(idle_time_on_epoch), on_batch_end=lambda batch,logs: time.sleep(idle_time_on_batch))
@@ -135,11 +137,28 @@ https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC
 	ax[0].plot(history.history['loss'], label="TrainLoss")
 	ax[0].plot(history.history['val_loss'], label="ValLoss")
 	ax[0].legend(loc='best', shadow=True)
+	plt.show()
+	plt.savefig('originLoss.png')
 
+	fig, ax = plt.subplots(2, 1, figsize=(6, 6))
 	ax[1].plot(history.history['acc'], label="TrainAcc")
 	ax[1].plot(history.history['val_acc'], label="ValAcc")
 	ax[1].legend(loc='best', shadow=True)
 	plt.show()
+	plt.savefig('originAcc.png')
+
+	plt.plot(history.history['loss'], label='trainLoss')
+	plt.plot(history.history['val_loss'], label='testLoss')
+	plt.legend()
+	plt.show()
+	plt.savefig("changeLoss.png")
+
+	plt.plot(history.history['acc'], label='trainAcc')
+	plt.plot(history.history['val_acc'], label='testAcc')
+	plt.legend()
+	plt.show()
+	plt.savefig("changeAcc.png")
+
 
 """
 #  ************pretrained model 사용하는 경우*************

@@ -92,8 +92,9 @@ class DataLoader:
     		abnormal = np.where(label==1)[0]
     		Cardiomegaly=np.where(label==2)[0]
 
-			undersampling = len(abnormal)
-			samples_to_val = np.concatenate([normal[:undersampling], abnormal[:undersampling], Cardiomegaly[len(Cardiomegaly)]])
+			# validation 시 normal, abnormal, Cardiomegaly의 갯수가 같은 상태에서 validation을 시행하자.
+			undersampling = len(Cardiomegaly)
+			samples_to_val = np.concatenate([normal[:undersampling], abnormal[:undersampling], Cardiomegaly[len[:undersampling]]])
 			self.nval  = len(samples_to_val)
 			label = label[samples_to_val]
 

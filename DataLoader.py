@@ -18,7 +18,7 @@ class DataLoader:
 		self.train_data   = self.load_train_data()
 		self.val_data     = self.load_validation_data()
 		self.test_data    = self.load_test_data()
-		if plot_distribuition: self.plot_data_distribuition()
+		#if plot_distribuition: self.plot_data_distribuition()
 	"""
 	def load_train_data(self):
 		train_data = pd.read_csv('dataset/mytrain_1.txt', header=None, index_col=None)[0].str.split(' ', 1)
@@ -48,7 +48,7 @@ class DataLoader:
 			abnormal = np.where(t_label==1)[0]
 			Cardiomegaly=np.where(t_label==2)[0]
 			undersampling = len(abnormal)
-			samples_to_train = np.concatenate([normal[:undersampling], abnormal[:undersampling], Cardiomegaly[len(Cardiomegaly)]])
+			samples_to_train = np.concatenate([normal[:undersampling], abnormal[:undersampling], Cardiomegaly[:len(Cardiomegaly)]])
 			self.ntrain = len(samples_to_train)
 			t_label = t_label[samples_to_train]
 			t_label = np_utils.to_categorical(t_label, num_classes=3)

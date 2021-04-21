@@ -17,10 +17,10 @@ import json#
 test_trained_model     = False
 load_previous_weights  = False
 
-samples_to_train  = 3000#78468#3000 #max: 78468
-samples_to_val    = 250#11219#250  #max: 11219
-samples_to_test   = 2000#22433#2000 #max: 22433
-epochs = 2
+samples_to_train  = 78468#3000 #max: 78468
+samples_to_val    = 11219#250  #max: 11219
+samples_to_test   = 22433#2000 #max: 22433
+epochs = 50
 batch_size = 128
 image_shape = (128, 128, 3)
 model_learn_rate = 0.001
@@ -117,7 +117,7 @@ if not test_trained_model:
 								  class_weight=class_w,
 	                              callbacks=[learning_rate_reduction, early_stop, checkpoint, idle],
 	                              # use_multiprocessing=True,
-	                              workers=2
+	                              workers=4
 	                              )
 
 	############################# Check Loss and Accuracy graphics over training ########################
@@ -130,7 +130,7 @@ if not test_trained_model:
 	plt.plot(history.history['val_loss'], label="ValLoss")
 	plt.legend(loc='best', shadow=True)
 	plt.show()
-	plt.savefig('originLoss.png')
+	plt.savefig('Loss.png')
 
 	#fig, ax = plt.subplots(2, 1, figsize=(6, 6))
 	plt.figure(2)
@@ -138,21 +138,9 @@ if not test_trained_model:
 	plt.plot(history.history['val_acc'], label="ValAcc")
 	plt.legend(loc='best', shadow=True)
 	plt.show()
-	plt.savefig('originAcc.png')
+	plt.savefig('Acc.png')
 
-	plt.figure(3)
-	plt.plot(history.history['loss'], label='trainLoss')
-	plt.plot(history.history['val_loss'], label='testLoss')
-	plt.legend()
-	plt.show()
-	plt.savefig("changeLoss.png")
 
-	plt.figure(4)
-	plt.plot(history.history['acc'], label='trainAcc')
-	plt.plot(history.history['val_acc'], label='testAcc')
-	plt.legend()
-	plt.show()
-	plt.savefig("changeAcc.png")
 
 	
 	model.save('my_model.h5')

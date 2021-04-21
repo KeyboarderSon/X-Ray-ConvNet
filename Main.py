@@ -124,26 +124,30 @@ if not test_trained_model:
 	#data_convert={k:float(v) for k,v in history.history.items()}
 	#with open('history_file.json', 'w') as f:
   #		json.dump(data_convert, f)
-	fig, ax = plt.subplots(2, 1, figsize=(6, 6))
+	#fig, ax = plt.subplots(2, 1, figsize=(6, 6))
+	plt.figure(1)
 	ax[0].plot(history.history['loss'], label="TrainLoss")
 	ax[0].plot(history.history['val_loss'], label="ValLoss")
 	ax[0].legend(loc='best', shadow=True)
 	plt.show()
 	plt.savefig('originLoss.png')
 
-	fig, ax = plt.subplots(2, 1, figsize=(6, 6))
+	#fig, ax = plt.subplots(2, 1, figsize=(6, 6))
+	plt.figure(2)
 	ax[1].plot(history.history['acc'], label="TrainAcc")
 	ax[1].plot(history.history['val_acc'], label="ValAcc")
 	ax[1].legend(loc='best', shadow=True)
 	plt.show()
 	plt.savefig('originAcc.png')
 
+	plt.figure(3)
 	plt.plot(history.history['loss'], label='trainLoss')
 	plt.plot(history.history['val_loss'], label='testLoss')
 	plt.legend()
 	plt.show()
 	plt.savefig("changeLoss.png")
 
+	plt.figure(4)
 	plt.plot(history.history['acc'], label='trainAcc')
 	plt.plot(history.history['val_acc'], label='testAcc')
 	plt.legend()
@@ -184,7 +188,7 @@ print('\nParameters used:',
 	'\nbatch_size:      ',batch_size,
 	'\ninit_learn_rate: ',model_learn_rate)
 
-
+"""
 print('##### Plotting Confusion Matrix #####')
 predict_out = model.predict_generator(test_data, verbose=2)
 test_predict = (predict_out > 0.5).astype(np.int8)
@@ -196,3 +200,4 @@ plt.title('Confusion Matrix')
 plt.ylabel('True label')
 plt.xlabel('Predicted label')
 plt.show()
+"""

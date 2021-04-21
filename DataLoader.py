@@ -35,7 +35,7 @@ class DataLoader:
 			train_images = train_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[:self.ntrain]
 		return (train_images, train_labels)
 	"""
-	def load_train_data():
+	def load_train_data(self):
 		train_data = pd.read_csv('dataset/mytrain_3.txt', header=None, index_col=None)[0].str.split(' ', 1)
 		train_labels = np.vstack(train_data.apply(lambda x: x[1]).values).astype(np.int8)[:self.ntrain]
 

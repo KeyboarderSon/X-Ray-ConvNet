@@ -121,9 +121,9 @@ if not test_trained_model:
 	                              )
 
 	############################# Check Loss and Accuracy graphics over training ########################
-	
+	data_convert={k:float(v) for k,v in history.history.items()}
 	with open('history_file.json', 'w') as f:
-  		json.dump(history.history, f)
+  		json.dump(data_convert, f)
 	fig, ax = plt.subplots(2, 1, figsize=(6, 6))
 	ax[0].plot(history.history['loss'], label="TrainLoss")
 	ax[0].plot(history.history['val_loss'], label="ValLoss")

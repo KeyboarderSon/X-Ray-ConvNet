@@ -108,7 +108,7 @@ if not test_trained_model:
 	########################################## Train Model ###############################################
 	model.summary()
 	#34113, 1950 : train 기준 normal 및 abnormal이 34113개, Car~이 1950개 
-	class_w={[1, 0, 0] : 0.02, [0, 1, 0] : 0.02, [0, 0, 1] : 0.96}
+	class_w={np.array([1, 0, 0]) : 0.02, np.array([0, 1, 0]) : 0.02, np.array([0, 0, 1]) : 0.96}
 	history = model.fit_generator(generator=train_data,
 	                              validation_data=val_data,
 	                              epochs=epochs,

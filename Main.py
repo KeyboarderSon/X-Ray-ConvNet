@@ -20,7 +20,7 @@ load_previous_weights  = False
 samples_to_train  = 78468#3000 #max: 78468
 samples_to_val    = 11219#250  #max: 11219
 samples_to_test   = 22433#2000 #max: 22433
-epochs = 50
+epochs = 100
 batch_size = 128
 image_shape = (128, 128, 3)
 model_learn_rate = 0.001
@@ -89,11 +89,11 @@ if not test_trained_model:
 	                           patience=12)
 
 	checkpoint = ModelCheckpoint('model_weights_sigmoid_3.hdf5',
-	                             monitor='val_accuracy',#val_loss to val_acc
+	                             monitor='val_loss',
 	                             verbose=1,
 	                             save_best_only=True,
-	                             mode='max',# according to monitor : val_accuracy
-	                             #save_weights_only=True
+	                             mode='min',
+	                             save_weights_only=True
 								)
 
 	# sleep after each batch and epoch (prevent laptop from melting) (sleeps for x sec)(remove for faster training)

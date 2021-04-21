@@ -59,22 +59,6 @@ if not test_trained_model:
 	                    image_dimensions=image_shape,
 	                    n_classes=3).get_model()
 
-
-	#if load_previous_weights == True:
-	#	print('Loading Model Weights')
-	#	model.load_weights("model_weights.hdf5")
-"""
-	METRICS = [
-		keras.metrics.TruePositives(name='tp'),
-		keras.metrics.FalsePositives(name='fp'),
-		keras.metrics.TrueNegatives(name='tn'),
-		keras.metrics.FalseNegatives(name='fn'), 
-		keras.metrics.BinaryAccuracy(name='accuracy'),
-		keras.metrics.Precision(name='precision'),
-		keras.metrics.Recall(name='recall'),
-		keras.metrics.AUC(name='auc'),
-	]"""
-
 	optimizer = Adam(lr=model_learn_rate,
 	                 beta_1=0.9,
 	                 beta_2=0.999,
@@ -83,13 +67,17 @@ if not test_trained_model:
 	                 amsgrad=False)
 
 	model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=['acc'])
-"""
-https://www.tensorflow.org/addons/api_docs/python/tfa/losses/SigmoidFocalCrossEntropy
-https://dsbook.tistory.com/64
-https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC%9D%B4%ED%95%B4
-"""
 
 
+	#if load_previous_weights == True:
+	#	print('Loading Model Weights')
+	#	model.load_weights("model_weights.hdf5")
+	"""	
+	https://www.tensorflow.org/addons/api_docs/python/tfa/losses/SigmoidFocalCrossEntropy
+	https://dsbook.tistory.com/64
+	https://wordbe.tistory.com/entry/ML-Cross-entropyCategorical-Binary%EC%9D%98-%EC%9D%B4%ED%95%B4
+	"""
+ 
 	learning_rate_reduction = ReduceLROnPlateau(monitor='val_loss',
 	                                            patience=5,
 	                                            verbose=1,

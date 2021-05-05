@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
+import tensorflow as tf
+from focal_loss import BinaryFocalLoss
+
 from keras.optimizers import Adam
 from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint, EarlyStopping, LambdaCallback
 
@@ -66,7 +69,7 @@ if not test_trained_model:
 	                 decay=0.0,
 	                 amsgrad=False)
 
-	model.compile(optimizer=optimizer, loss="categorical_crossentropy", metrics=['acc'])
+	model.compile(optimizer=optimizer, loss=tf.keras.losses.BinaryFocalLoss(gamma=2), metrics=['acc'])
 
 
 	#if load_previous_weights == True:
@@ -108,16 +111,16 @@ if not test_trained_model:
 	########################################## Train Model ###############################################
 	model.summary()
 	#34113, 1950 : train 기준 normal 및 abnormal이 34113개, Car~이 1950개 
-	class_w={0 : 0.02, 1 : 0.02, 2 : 0.96}
+	#class_w={0 : 0.02, 1 : 0.02, 2 : 0.96}
 	history = model.fit_generator(generator=train_data,
 	                              validation_data=val_data,
 	                              epochs=epochs,
 	                              steps_per_epoch=len(train_data),
 	                              verbose=2,
-								  class_weight=class_w,
+								  #class_weight=class_w,
 	                              callbacks=[learning_rate_reduction, early_stop, checkpoint, idle],
 	                              # use_multiprocessing=True,
-	                              workers=4
+	                              workers=2
 	                              )
 
 	############################# Check Loss and Accuracy graphics over training ########################

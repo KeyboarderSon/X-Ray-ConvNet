@@ -103,11 +103,36 @@ class DataLoader:
 
 	def load_test_data(self):
 		test_data = pd.read_csv('dataset/mytest_3.txt', header=None, index_col=None)[0].str.split(' ', 1)
+		test_labels = np.vstack(test_data.apply(lambda x: x[1]).values).astype(np.int8)[:self.ntest]
+
+		if self.undersample:
+			label=[]
+			for i in test_labels:
+				label.append(i[0])
+			label=np.array(label)
+			normal = np.where(label==0)[0]
+			abnormal = np.where(label==1)[0]
+			Cardiomegaly=np.where(label==2)[0]
+
+			# validation 시 normal, abnormal, Cardiomegaly의 갯수가 같은 상태에서 validation을 시행하자.
+			undersampling = len(Cardiomegaly)
+			samples_to_test = np.concatenate([normal[:undersampling], abnormal[:undersampling], Cardiomegaly[:undersampling]])
+			self.ntest  = len(samples_to_test)
+			label = label[samples_to_test]
+
+			label = np_utils.to_categorical(label, num_classes=3)
+			test_images = test_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[samples_to_test]#'../database_preprocessed/'
+		else:
+			test_images = test_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[:self.ntest]
+		return (test_images, label)
+
+		"""
+		test_data = pd.read_csv('dataset/mytest_3.txt', header=None, index_col=None)[0].str.split(' ', 1)
 		test_labels = np.vstack(test_data.apply(lambda x: max(x[1].split())).values).astype(np.int8)[:self.ntest]
 		test_labels = np_utils.to_categorical(test_labels, num_classes=3)
 		test_images = test_data.apply(lambda x: '../database_preprocessed/' + x[0]).values[:self.ntest]
 		return (test_images, test_labels)
-
+		"""
 
 	def load_train_generator(self):
 		return DataGenerator(*self.train_data,

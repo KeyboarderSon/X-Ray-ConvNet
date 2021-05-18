@@ -88,8 +88,8 @@ class BinaryModel:
 		model.add(Flatten())
 		model.add(Dense(512, activation='relu'))
 		model.add(Dropout(0.5))
-#		model.add(Dense(self.n_classes, activation='sigmoid'))
-		model.add(Dense(self.n_classes, activation='softmax'))
+		model.add(Dense(self.n_classes, activation='sigmoid'))
+		#model.add(Dense(self.n_classes, activation='softmax'))
 
 		return model
 

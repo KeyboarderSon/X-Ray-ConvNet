@@ -8,7 +8,7 @@ from imgaug import augmenters as iaa
 
 class DataGenerator(keras.utils.Sequence):
 	'Generates data for Keras'
-	def __init__(self, images_paths, labels, batch_size=64, image_dimensions = (128,128,3), shuffle=True, augment=False):
+	def __init__(self, images_paths, labels, batch_size=64, image_dimensions = (256,256,3), shuffle=True, augment=False):
 		self.labels       = labels
 		self.images_paths = images_paths
 		self.dim          = image_dimensions

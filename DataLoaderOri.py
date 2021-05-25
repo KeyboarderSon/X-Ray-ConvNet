@@ -47,7 +47,7 @@ class DataLoader:
 			normal = np.where(t_label==0)[0]
 			abnormal = np.where(t_label==1)[0]
 			Cardiomegaly=np.where(t_label==2)[0]
-			undersampling = len(abnormal)
+			undersampling = len(Cardiomegaly)#abnormal->Car로바꿈
 			samples_to_train = np.concatenate([normal[:undersampling], abnormal[:undersampling], Cardiomegaly[:len(Cardiomegaly)]])
 			self.ntrain = len(samples_to_train)
 			t_label = t_label[samples_to_train]

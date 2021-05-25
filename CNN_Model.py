@@ -2,7 +2,7 @@ from keras.models import Model
 
 from keras.models import Sequential
 from keras.layers import Input, Dense, Dropout, Flatten, Conv2D, MaxPool2D, BatchNormalization, Activation, concatenate
-from keras.applications import densenet, Xception#, NASNetMobile, mobilenetv2
+from keras.applications import densenet#, Xception#, NASNetMobile, mobilenetv2
 
 
 class BinaryModel:
@@ -86,6 +86,8 @@ class BinaryModel:
 		model = Sequential()
 		model.add(dense_model)
 		model.add(Flatten())
+		model.add(Dense(1024, activation='relu'))#add
+		model.add(Dropout(0.5))#add
 		model.add(Dense(512, activation='relu'))
 		model.add(Dropout(0.5))
 		model.add(Dense(self.n_classes, activation='sigmoid'))

@@ -12,12 +12,6 @@ def preprocess_data(n_to_process=-1, img_shape=(256, 256)):
 		- resize to the desired dimensions
 
 	'''
-	#for f in #('images_001', 'images_002','images_001', 'images_003','images_004', 'images_005','images_006',
-	          #'images_007','images_008', 'images_009', 'images_010', 'images_011', 'images_0012'):
-	#for f in ('images_01', 'images_02','images_01', 'images_03','images_04', 'images_05','images_06',
-	          #'images_07','images_08', 'images_09', 'images_10', 'images_11', 'images_12'):
-	#os.makedirs(f'/tf/joohye/FocalLossConvNet/database_preprocessed', exist_ok=True)
-
 	train_data = pd.read_csv('dataset/mytrain_3.txt', header=None, index_col=None)[0].str.split(' ', 1)
 	val_data   = pd.read_csv('dataset/myval_3.txt', header=None, index_col=None)[0].str.split(' ', 1)
 	test_data  = pd.read_csv('dataset/mytest_3.txt', header=None, index_col=None)[0].str.split(' ', 1)
@@ -28,9 +22,9 @@ def preprocess_data(n_to_process=-1, img_shape=(256, 256)):
 	test_data  = test_data if (n_to_process ==-1 or n_to_process>len(test_data)) else test_data[:n_to_process]
 
 
-	train_paths = train_data.apply(lambda x: '/tf/joohye/images/' + x[0]).values#as_matrix()
-	val_paths   = val_data.apply(lambda x: '/tf/joohye/images/' + x[0]).values#as_matrix()
-	test_paths  = test_data.apply(lambda x: '/tf/joohye/images/' + x[0]).values#as_matrix()"""joohye/X-Ray-ConvNet/database/"""
+	train_paths = train_data.apply(lambda x: '/tf/joohye/images/' + x[0]).values
+	val_paths   = val_data.apply(lambda x: '/tf/joohye/images/' + x[0]).values
+	test_paths  = test_data.apply(lambda x: '/tf/joohye/images/' + x[0]).values
 	all_paths   = np.hstack((train_paths, val_paths, test_paths))
 
 
@@ -45,5 +39,4 @@ def preprocess_data(n_to_process=-1, img_shape=(256, 256)):
             img = transform.resize(img, img_shape, anti_aliasing=True)
             plt.imsave(fname=new_path, arr=img, cmap='gray')
 
-print("hey is it work?")
 preprocess_data(n_to_process=-1, img_shape=(256,256))

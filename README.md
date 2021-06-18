@@ -1,20 +1,23 @@
-# X-Ray Convolutional Neural Network
-A Keras simplified implementation based on [ChesXNet](https://github.com/zoogzog/chexnet) for pathology detection in frontal chest X-ray images which was in turn based on the original paper presented [here](https://stanfordmlgroup.github.io/projects/chexnet/). 
-Learning was the main motivation for this work.
+# Capstone design 1 (1)
+## X-Ray Convolutional Neural Network with NIH dataset
+> NIH Dataset으로의 학습을 통해 향후 Cardiomegaly(심장비대증) classification 전이학습에 weight를 사용한다.
 
 
 
-# Dataset
-The ChestX-ray dataset comprises 112,120 frontal-view chest X-ray with 14 disease labels, which are later simplified into 0(Normal xray) and 1(Abnormal xray - Pathology found).
+### Dataset
+
+112,120개의 14개의 병변이 multi label로 구성된 ChestX-ray dataset을 사용하였다.   
+0 : Normal xray  
+1 : Abnormal xray without Cardiomegaly  
+2 : Abnormal xray with Cardiomegaly
 
 
 
-# Preprocessing
-Preprocessing was applied before training, to reduce in-train cpu time, and images were saved to a new databse (./database_preprocessed/...).
-<br><br>
-The preprocessing consisted on:
-  * Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to correct contrast(might introduce some error).
-  * Resize images from 1024x1024p to 128x128p (Bigger dimensions would be preferable as most often patologies appear on a small area on the image, which might get lost or distorted upon resize. The dimensions were limited by the GPU memory).
+### Preprocessing
+전처리에 사용된 기법은 아래와 같다.
+  * Contrast Limited Adaptive Histogram Equalization (CLAHE) to correct contrast(might introduce some error)
+  * Resize images from 1024x1024p to 256x256p  
+  (resize되는 값이 크면 클수록 좋다)
 
 <!---
 [//]: # (![Xray after applying contrast](https://i.imgur.com/Z9aIY77.png))
@@ -23,9 +26,9 @@ The preprocessing consisted on:
 
 
 
-# Usage
-  * Clone repository.
-  * Download the ChestX-ray14 database from [here](https://nihcc.app.box.com/v/ChestXray-NIHCC/folder/37178474737).
-  * Unpack archives in separate directories (e.g. images_001.tar.gz into images_001).
-  * Run PreprocessData.py to create new database with processed data.
-  * Run Main.py with desired Parameters.
+### Usage
+  * ```git clone```
+  * ChestX-ray14 database [here](https://nihcc.app.box.com/v/ChestXray-NIHCC/folder/37178474737)에서 데이터셋 다운로드
+  * 개별 디렉토리에 압축을 푼다 (e.g. images_01.tar.gz into images_01).
+  * ```python PreprocessData.py```
+  * ```python Main.py```
